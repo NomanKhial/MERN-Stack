@@ -46,6 +46,9 @@ const server = http.createServer((request, response)=>{
         filePath = path.join(__dirname, "index.html");
         response.writeHead(200, "response sent", {"content-type": "text/html"})
     }
+    if (request.url === '/er.jpg') {
+        filePath = path.join(__dirname, "er.jpg")
+    }
     if (request.url === '/style.css') {
         filePath = path.join(__dirname, 'style.css')
         response.writeHead(200, {"content-type": "text/css"})
