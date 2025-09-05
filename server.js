@@ -1,18 +1,17 @@
-
 /**************************** 
  Read File, 
  We can read file in sync and
  async way
 ******************************/
 
-const filesystem = require('fs')
+const filesystem = require("fs");
 // reead synch return the red value
-const redContent = filesystem.readFileSync('./text.txt', 'utf-8')
+const redContent = filesystem.readFileSync("./text.txt", "utf-8");
 // console.log(redContent)
 
-filesystem.readFile('./text.txt', 'utf-8', (err, data)=>{
-    // console.log(data)
-})
+filesystem.readFile("./text.txt", "utf-8", (err, data) => {
+  // console.log(data)
+});
 
 /**************************** 
  Writing into File, 
@@ -28,35 +27,95 @@ filesystem.readFile('./text.txt', 'utf-8', (err, data)=>{
 // this method write asynchoronously
 // filesystem.writeFile('./text.txt', 'nomankhial', ()=> {})
 
-
 //  filesystem.writeFileSync(". /noman.md", 'nomankhial userstories')
-
 
 /**************************** 
      Creating Server
 ******************************/
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
+const http = require("http");
+const fs = require("fs");
+const path = require("path");
 
+const server = http.createServer((request, response) => {
+  // ! Path module
+  // console.log(path.basename('google.com/user.text)
 
-const server = http.createServer((request, response)=>{
-    let filePath = ''
-    if (request.url === '/') {
-        filePath = path.join(__dirname, "index.html");
-        response.writeHead(200, "response sent", {"content-type": "text/html"})
-    }
-    if (request.url === '/er.jpg') {
-        filePath = path.join(__dirname, "er.jpg")
-    }
-    if (request.url === '/style.css') {
-        filePath = path.join(__dirname, 'style.css')
-        response.writeHead(200, {"content-type": "text/css"})
-    }
+  // console.log(path.dirname('schools/students')) // return the directry name
+  // console.log(path.extname('google.net')) return the extention name
+  // console.log(path.isAbsolute("./home/users")) return boolean for url type
+  // console.log(path.isAbsolute("https://www.w3schools.com/"))
+  // console.log(path.join('https', '://google.com', '/users')) join multple url togather
+  // console.log(path.join('/users', '../system', './logs', 'file.txt'));
+  // const fullPath = path.join('/users', 'docs', 'file.txt');
+  // console.log(fullPath)
 
-    fs.readFile(filePath, (err, content)=>{
-        response.end(content)
-    })
-})
+  // console.log(path.resolve('index.html')) it will return the complete relative path
 
-server.listen(3000, ()=>console.log('server has started!'))
+  // console.log(__filename) return file name
+  // console.log(__dirname) return complete directry
+
+  // console.log(path.basename(__dirname)) return the last portion
+  // console.log(path.basename(__filename)) returns the last portion of file
+
+  // console.log(path.extname(path.resolve("index.html")))
+
+  // parsing the url
+
+  // console.log(path.parse(__dirname)) parse and retrn an object of fragement of complet path
+
+  // console.log(path.parse(__filename))
+
+  // console.log(path.format(path.parse(__filename))) it strigify parsed url back
+
+  /**
+    //  * path.basename() returns last fragment 
+    //  * path.extname() returns file extention
+    //  * path.join() joins two or more segment of paths
+    //  * path.resolve() process from right to left the segments and when it forms absolute path return
+    //  * path.parse() returns an object consisting of all sements og url
+    //  * path.format() format the parsed url back
+    //  * path.extname() return extention name of file
+    //  * path.isAbsolute() returns a bool value if path is absolute (true)
+    // *  path.normalize(`/team/${1+2}/gender`)
+    //  * _dirname
+    //  * _filename
+     * 
+     */
+
+    console.log(path.normalize(`/doc/${1+2}.//drivers`))
+
+  // console.log(path.delimiter) : / \
+
+  // console.log(path.join("home", "../about", "../index"))
+
+  // console.log(path.join('folder1', 'folder2', 'index.js'))
+  // console.log(path.isAbsolute(__filename))
+
+  // console.log(path.join(__dirname, "/node_modules/bin/nodemon.js"))
+
+  // console.log(path.resolve("/home", "about", "index")) Resolves a sequence of paths or path segments into an absolute path, processing from right to left until an absolute path is constructed.
+
+  //  console.log(path.resolve("index.html"))
+  let filePath = "";
+  if (request.url === "/") {
+    filePath = path.join(__dirname, "index.html");
+    response.writeHead(200, "response sent", { "content-type": "text/html" });
+  }
+  if (request.url === "/er.jpg") {
+    filePath = path.join(__dirname, "er.jpg");
+  }
+  if (request.url === "/style.css") {
+    filePath = path.join(__dirname, "style.css");
+    response.writeHead(200, { "content-type": "text/css" });
+  }
+  if (request.url === "/about") {
+    filePath = path.join(__dirname, "./about.html");
+    response.writeHead(200, { "content-type": "text/html" });
+  }
+
+  fs.readFile(filePath, (err, content) => {
+    response.end(content);
+  });
+});
+
+server.listen(3000, () => console.log("server has started!"));
