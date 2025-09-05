@@ -1,6 +1,8 @@
 
 // * Create custom event
 const eventEmitter = require("events")
+const store = require("./Store")
+const Drinks = require("./drinks")
 
 // * instanciate event object from class
 const event = new eventEmitter.EventEmitter()
@@ -22,7 +24,7 @@ event.emit('MakeCustomEvent')
 
 event.on("order-pizza", (size, type)=>{
     console.log(`Hey you've ordered ${type} pizza, of sized ${size}`)
-})
+ })
 
 event.on("order-pizza", (size, type)=>{
     console.log(`Hey you've made ${type} pizza, of sized ${size}`)
@@ -63,3 +65,18 @@ event.emit("error", new Error("Something Went wrong!"))
 //  ********************/
 
 event.off("error", listner)
+
+
+const ourStore = new store()
+const drink = new Drinks()
+const storeListner = (size, type) => {
+    console.log(`you order ${type} pizza, of sized ${size}`)
+    drink.serveDrink('zam zam')
+}
+ourStore.on('order', storeListner)
+
+ourStore.order('large', 'mushroom')
+ourStore.orderQuantity()
+
+
+ourStore.off("order", storeListner)
