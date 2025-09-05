@@ -3,7 +3,7 @@
 const eventEmitter = require("events")
 
 // * instanciate event object from class
-const event = new eventEmitter()
+const event = new eventEmitter.EventEmitter()
 
 // * Peform some logic once event happens
 event.on('MakeCustomEvent', ()=>console.log("Custom event has created!"))
@@ -29,3 +29,37 @@ event.on("order-pizza", (size, type)=>{
 })
 event.emit('order-pizza', "large", "mushroom")
 event.emit('order-pizza', "small", "candy")
+
+
+// *********************
+
+    //*** Calling Event Once ***//
+
+//  ********************/
+
+event.once('fire-event', (msg)=> console.log(msg))
+
+
+event.emit("fire-event", 'fire fire fire')
+// event.emit("fire-event", 'fire fire fire') prevent triggring listner again
+
+
+// *********************
+
+    //*** Handling Errors ***//
+
+//  ********************/
+
+const listner = (err)=> console.error(err.message)
+
+event.on("error", listner)
+
+event.emit("error", new Error("Something Went wrong!"))
+
+// *********************
+
+    //*** Cleanup ***//
+
+//  ********************/
+
+event.off("error", listner)
