@@ -89,7 +89,7 @@ const EventEmitter = require('events')
 
 // EventEmitter.defaultMaxListeners = 2 //? here we have specified the number of listener for the complete emitter 
 
-const event = new EventEmitter()
+const event = new EventEmitter({captureRejections: true})
 
  event.setMaxListeners(7) //? aditionally we can set it here aswell specific to a single event
 
@@ -123,7 +123,13 @@ event.on('async-event', (name)=>{
     })
 })
 
+//! we can also returun promises
+event.on('failed-call', async ()=>{
+    throw new Error('Failed to execute this function')
+})
+
+event.on('error', (err)=> console.log(err.message))
 
 event.emit('async-event', 'Programming')
-
+event.emit('failed-call')
 console.log('after async call for event')
