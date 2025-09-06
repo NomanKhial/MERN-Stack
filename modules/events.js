@@ -107,4 +107,23 @@ event.prependListener('load', ()=> console.log('I am prepend lisner X2'))
 event.prependOnceListener('load', ()=>console.log('i am prepend once listner, and i excute first'))
 event.prependOnceListener('load', ()=>console.log('i am prepend once listner, and i excute first X2'))
 
-event.emit('load')
+// event.emit('load')
+
+
+// ! Behaviour of events in nodejs 
+
+// * By default nodejs EventEmitter fires syncronous events but we can make it async using setImmediate() or process.nextTick()
+
+// todo lets see how we can accomplish this behaviour
+
+console.log('before async call for event')
+event.on('async-event', (name)=>{
+    setImmediate(()=>{
+        console.log(`async operation for ${name} completed!`)
+    })
+})
+
+
+event.emit('async-event', 'Programming')
+
+console.log('after async call for event')
