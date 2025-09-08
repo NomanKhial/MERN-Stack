@@ -175,5 +175,23 @@ app.patch("/api/v1/users/:id", (req, res)=>{
 
 
 
+// delete method
+app.delete("/api/v1/users/:id", (req, res)=>{
+  const userId = parseInt(req.params.id)
+  const userObject = users.find(user => user.id === userId)
+
+
+  if (!userObject) {
+    return res.status(404).json({errorMesage: "User not found!"})
+  }
+
+  const userIndex = users.indexOf(userObject)
+
+  const deleted = users.splice(userIndex, 1)
+
+
+  fs.writeFileSync("./users.json", JSON.stringify(users))
+  res.status(202).json({deleted})
+})
 
 app.listen(8080)
