@@ -11,11 +11,16 @@
     "Mern Stack Project",
     "Noman Khial's Project"
   ],
-  "repository": {"url": "https://github.com/NomanKhial/MERN-Stack.git"},
+  "repository": {
+    "url": "https://github.com/NomanKhial/MERN-Stack.git"
+  },
   "author": "Noman Khial",
   "license": "ISC",
   "description": "A complete MErn Stack Project",
   "devDependencies": {
     "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
   }
 }

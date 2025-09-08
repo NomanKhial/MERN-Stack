@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Emily Carter",
+    "email": "xyz@gmail.com",
+    "age": 29,
+    "country": "United States"
+  },
+  {
+    "id": 2,
+    "name": "Rajesh Verma",
+    "email": "rajesh.verma@example.com",
+    "age": 35,
+    "country": "India"
+  },
+  {
+    "id": 3,
+    "name": "Sofia Rossi",
+    "email": "sofia.rossi@example.com",
+    "age": 26,
+    "country": "Italy"
+  },
+  {
+    "id": 4,
+    "name": "Liam Müller",
+    "email": "liam.mueller@example.com",
+    "age": 31,
+    "country": "Germany"
+  },
+  {
+    "id": 5,
+    "name": "Aiko Tanaka",
+    "email": "aiko.tanaka@example.com",
+    "age": 22,
+    "country": "Japan"
+  }
+]
