@@ -191,7 +191,14 @@ app.delete("/api/v1/users/:id", (req, res)=>{
 
 
   fs.writeFileSync("./users.json", JSON.stringify(users))
-  res.status(202).json({deleted})
+  res.status(204).json({deleted})
+})
+
+
+app.put("/api/v1/users", (req, res)=>{
+  users.push({id: Date.now() + crypto.randomUUID(), ...req.body})
+  fs.writeFileSync("./users.json", JSON.stringify(users))
+  res.status(201).json(users)
 })
 
 app.listen(8080)
