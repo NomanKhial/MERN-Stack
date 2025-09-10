@@ -209,14 +209,27 @@
 // express routes
 
 const express = require('express')
+const app = express()
+
+
 const router = express.Router()
 
-const app = express()
+// ! global middleware
+app.use((req, res, next)=>{
+  console.log('middleware is called!')
+  next()
+})
+
+
+const routeMiddleWare = (req, res, next)=>{
+  console.log('i am the post middleware')
+  next()
+}
 
 // Chainable route handlers
 app.route('/')
   .get((req, res)=>res.send('get request is made'))
-  .post((req, res)=> res.send('post request is made'))
+  .post(routeMiddleWare, (req, res)=> res.send('post request is made'))
   .delete((req, res)=> res.send('delete request is made'))
 
 app.listen(3000, ()=>console.log('server has started!'))
