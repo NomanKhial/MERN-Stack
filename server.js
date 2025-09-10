@@ -121,84 +121,102 @@
 // server.listen(3000, () => console.log("server has started!"));
 
 
-const express = require("express")
-const fs = require('fs')
-const path = require('path')
-const movies = JSON.parse(fs.readFileSync(path.join(__dirname, 'movies.json'), "utf-8"))
+// const express = require("express")
+// const fs = require('fs')
+// const path = require('path')
+// const movies = JSON.parse(fs.readFileSync(path.join(__dirname, 'movies.json'), "utf-8"))
 
-const app = express()
+// const app = express()
 
-app.use(express.json())
+// app.use(express.json())
 
-app.get("/api/v1/posts", (req, res)=>{
-  res.status(200).json(movies)
-})
+// app.get("/api/v1/posts", (req, res)=>{
+//   res.status(200).json(movies)
+// })
 
-app.patch("/api/v1/posts/:id", (req, res)=>{
-
-
-
-  const requestedId = parseInt(req.params.id) 
-  const movietoUpdate =  movies.find(movie => movie.id === requestedId)
-
-  const movieIndex = movies.indexOf(movietoUpdate)
-
-  Object.assign(movietoUpdate, req.body)
-
-  movies[movieIndex] = movietoUpdate
-
-  fs.writeFileSync("./movies.json", JSON.stringify(movies))
-
-  res.status(200).json({modified: "succesfully", movies})
-})
+// app.patch("/api/v1/posts/:id", (req, res)=>{
 
 
-const users = JSON.parse(fs.readFileSync(path.join(__dirname + "/users.json"), "utf-8"))
 
-// endpoint for user editing
-app.patch("/api/v1/users/:id", (req, res)=>{
-  const requestedId = parseInt(req.params.id)
-  const machedObject = users.find(user => user.id === requestedId)
-  if (!machedObject) {
-    return res.status(404).json({msg: "No matched found"})
-  }
-  const matchObjectIndex = users.indexOf(machedObject)
+//   const requestedId = parseInt(req.params.id) 
+//   const movietoUpdate =  movies.find(movie => movie.id === requestedId)
+
+//   const movieIndex = movies.indexOf(movietoUpdate)
+
+//   Object.assign(movietoUpdate, req.body)
+
+//   movies[movieIndex] = movietoUpdate
+
+//   fs.writeFileSync("./movies.json", JSON.stringify(movies))
+
+//   res.status(200).json({modified: "succesfully", movies})
+// })
+
+
+// const users = JSON.parse(fs.readFileSync(path.join(__dirname + "/users.json"), "utf-8"))
+
+// // endpoint for user editing
+
+
+// app.patch("/api/v1/users/:id", (req, res)=>{
+//   const requestedId = parseInt(req.params.id)
+//   const machedObject = users.find(user => user.id === requestedId)
+//   if (!machedObject) {
+//     return res.status(404).json({msg: "No matched found"})
+//   }
+//   const matchObjectIndex = users.indexOf(machedObject)
   
-  Object.assign(machedObject, req.body)
+//   Object.assign(machedObject, req.body)
 
-  users[matchObjectIndex] = machedObject
+//   users[matchObjectIndex] = machedObject
 
-  fs.writeFileSync("./users.json", JSON.stringify(users))
+//   fs.writeFileSync("./users.json", JSON.stringify(users))
 
-  res.status(200).json(users)
-})
+//   res.status(200).json(users)
+// })
 
 
 
 // delete method
-app.delete("/api/v1/users/:id", (req, res)=>{
-  const userId = parseInt(req.params.id)
-  const userObject = users.find(user => user.id === userId)
+// app.delete("/api/v1/users/:id", (req, res)=>{
+//   const userId = parseInt(req.params.id)
+//   const userObject = users.find(user => user.id === userId)
 
 
-  if (!userObject) {
-    return res.status(404).json({errorMesage: "User not found!"})
-  }
+//   if (!userObject) {
+//     return res.status(404).json({errorMesage: "User not found!"})
+//   }
 
-  const userIndex = users.indexOf(userObject)
+//   const userIndex = users.indexOf(userObject)
 
-  const deleted = users.splice(userIndex, 1)
-
-
-  fs.writeFileSync("./users.json", JSON.stringify(users))
-  res.status(204).json({deleted})
-})
+//   const deleted = users.splice(userIndex, 1)
 
 
-app.put("/api/v1/users", (req, res)=>{
-  users.push({id: Date.now() + crypto.randomUUID(), ...req.body})
-  fs.writeFileSync("./users.json", JSON.stringify(users))
-  res.status(201).json(users)
-})
+//   fs.writeFileSync("./users.json", JSON.stringify(users))
+//   res.status(204).json({deleted})
+// })
 
-app.listen(8080)
+
+// app.post("/api/v1/users", (req, res)=>{
+//   users.push({id: Date.now() + crypto.randomUUID(), ...req.body})
+//   fs.writeFileSync("./users.json", JSON.stringify(users))
+//   res.status(201).json(users)
+// })
+
+// app.listen(8080)
+
+
+// express routes
+
+const express = require('express')
+const router = express.Router()
+
+const app = express()
+
+// Chainable route handlers
+app.route('/')
+  .get((req, res)=>res.send('get request is made'))
+  .post((req, res)=> res.send('post request is made'))
+  .delete((req, res)=> res.send('delete request is made'))
+
+app.listen(3000, ()=>console.log('server has started!'))
